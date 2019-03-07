@@ -1,5 +1,7 @@
 ﻿using System;
-
+/**
+ * Code modified by dominik.guhr@codecentric.de according to apache v2 license
+ */
 namespace IdentityModel.AspNetCore
 {
     public class AutomaticTokenManagementOptions
