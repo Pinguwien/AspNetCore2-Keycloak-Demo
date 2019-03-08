@@ -49,12 +49,15 @@ namespace Confidential_App
                 })
                 .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,
                     options => { options.AccessDeniedPath = "/account/denied"; })
-                .AddAutomaticTokenManagement()              
+                .AddAutomaticTokenManagement(options => new AutomaticTokenManagementOptions
+                {
+                    Scheme = "Keycloak"
+                })              
                 .AddOpenIdConnect("Keycloak", options =>
                 {
-                    options.Authority = Configuration["Authentication:oidc:Authority"];
-                    options.ClientId = Configuration["Authentication:oidc:ClientId"];
-                    options.ClientSecret = Configuration["Authentication:oidc:ClientSecret"];
+                    options.Authority = Configuration["Authentication:Keycloak:Authority"];
+                    options.ClientId = Configuration["Authentication:Keycloak:ClientId"];
+                    options.ClientSecret = Configuration["Authentication:Keycloak:ClientSecret"];
                     
                     // Configure the scope
                     options.ResponseType = "code";
@@ -67,7 +70,6 @@ namespace Confidential_App
                     
                     options.RequireHttpsMetadata = false;
                     options.SaveTokens = true;
-                    options.RemoteSignOutPath = "/keycloak/k_logout";
                     options.SignedOutRedirectUri = "/";
                     options.Events = new OpenIdConnectEvents
                     {

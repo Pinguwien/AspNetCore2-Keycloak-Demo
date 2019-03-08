@@ -7,7 +7,7 @@ namespace Bearer_App.JwtConfig
     {
         public static void LoadFromConfig(IConfiguration configuration)
         {
-            var config = configuration.GetSection("JwtConfiguration");
+            var config = configuration.GetSection("Jwt");
             Audience = config.GetValue<string>("Audience");
             Issuer = config.GetValue<string>("Issuer");
             TokenExpirationTime = TimeSpan.FromMinutes(config.GetValue<int>("TokenExpirationTime"));
