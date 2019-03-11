@@ -51,9 +51,9 @@ namespace Confidential_App
                     options => { options.AccessDeniedPath = "/account/denied"; })
                 .AddAutomaticTokenManagement(options => new AutomaticTokenManagementOptions
                 {
-                    Scheme = "Keycloak"
+                    Scheme = OpenIdConnectDefaults.AuthenticationScheme
                 })              
-                .AddOpenIdConnect("Keycloak", options =>
+                .AddOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme, options =>
                 {
                     options.Authority = Configuration["Authentication:Keycloak:Authority"];
                     options.ClientId = Configuration["Authentication:Keycloak:ClientId"];
@@ -91,7 +91,7 @@ namespace Confidential_App
                         OnRedirectToIdentityProvider = context =>
                         {
                             context.ProtocolMessage.SetParameter("audience",
-                                Configuration["Authentication:oidc:ClientId"]);
+                                Configuration["Authentication:Keycloak:ClientId"]);
 
                             return Task.FromResult(0);
                         }
